@@ -18,12 +18,12 @@ enum ViewType {
   delete,
 }
 
-class InputSchema {
+class FormSchema {
   final ViewType viewType;
   final String name;
   final List<Action> actions;
 
-  InputSchema({
+  FormSchema({
     required this.viewType,
     required this.name,
     required this.actions,
@@ -35,8 +35,8 @@ class Action {
   final String name;
   final String label;
   final bool required;
-  final String defaultValue;
-  final int maxLength;
+  final String? defaultValue;
+  final int? maxLength;
   final bool readOnly;
 
   Action({
@@ -44,8 +44,8 @@ class Action {
     required this.name,
     required this.label,
     required this.required,
-    required this.defaultValue,
-    required this.maxLength,
+    this.defaultValue,
+    this.maxLength,
     required this.readOnly,
   });
 }

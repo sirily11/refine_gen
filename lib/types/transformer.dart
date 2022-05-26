@@ -3,7 +3,7 @@ import 'package:refine_gen/generator/generator.dart';
 import 'field.dart';
 
 abstract class Transformer {
-  final InputSchema inputSchema;
+  final FormSchema inputSchema;
 
   Transformer({required this.inputSchema});
 

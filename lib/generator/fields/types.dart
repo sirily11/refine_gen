@@ -1,6 +1,9 @@
 enum FieldType {
   string,
-  interger,
+  number,
   image,
+  choice,
+  file,
   datetime,
+  boolean,
 }

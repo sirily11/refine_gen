@@ -7,7 +7,7 @@ void main() {
   group('Test schema field transformer', () {
     test('Returns without problem', () {
       final inputSchema =
-          InputSchema(viewType: ViewType.create, name: 'Test', actions: [
+          FormSchema(viewType: ViewType.create, name: 'Test', actions: [
         Action(
             type: FieldType.string,
             name: 'name',

@@ -10,21 +10,14 @@ Field _mapFields(FieldType type,
     case FieldType.string:
       return StringField(
           label: label, name: name, required: required, readOnly: readOnly);
-    case FieldType.interger:
-      return StringField(
-          name: name, label: label, required: required, readOnly: readOnly);
-    case FieldType.image:
-      return StringField(
-          name: name, label: label, required: required, readOnly: readOnly);
-    case FieldType.datetime:
-      return StringField(
-          name: name, label: label, required: required, readOnly: readOnly);
+    default:
+      throw Exception('Unsupported field type: $type');
   }
 }
 
 class SchemaFieldTransformer implements Transformer {
   @override
-  final InputSchema inputSchema;
+  final FormSchema inputSchema;
 
   SchemaFieldTransformer({required this.inputSchema});
 

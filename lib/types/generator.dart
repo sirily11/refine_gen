@@ -3,7 +3,7 @@ import 'package:refine_gen/types/types.dart';
 
 abstract class Generator {
   late List<Field> fields;
-  final List<InputSchema> inputSchema;
+  final List<FormSchema> inputSchema;
   final Transformer transformer;
 
   Generator({required this.inputSchema, required this.transformer});
