@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:jinja/jinja.dart';
+import 'package:jinja/loaders.dart';
 import 'package:refine_gen/adapter/drf_adapter.dart';
 import 'package:refine_gen/transformer/schema_field_transformer.dart';
 import 'package:refine_gen/types/drf_schema_types.dart';
 import 'package:refine_gen/types/types.dart';
+import 'package:recase/recase.dart';
+import '../types/adapter.dart';
 
 typedef InputType = DRFSchema;
 typedef OutputType = FormSchema;
@@ -12,16 +16,26 @@ typedef OutputType = FormSchema;
 class RefineAntdGenerator extends Generator<InputType, OutputType> {
   RefineAntdGenerator({
     required InputType inputSchema,
+    Adapter<InputType, OutputType>? adapter,
+    Transformer? transformer,
   }) : super(
           inputSchema: inputSchema,
-          transformer: SchemaFieldTransformer(),
-          adapter: DRFAdapter(),
+          transformer: transformer ?? SchemaFieldTransformer(),
+          adapter: adapter ?? DRFAdapter(),
         );
 
   @override
-  Map<String, dynamic> renderMap({required List<String> fields}) {
-    // TODO: implement renderMap
-    throw UnimplementedError();
+  Map<String, dynamic> renderMap({
+    required List<String> fields,
+    required schema,
+    required List<String> selections,
+  }) {
+    return {
+      'fields': fields,
+      'selections': selections,
+      'componentName': schema.name.pascalCase,
+      'viewType': schema.viewType
+    };
   }
 
   @override
@@ -44,31 +58,33 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
         prefix = 'delete';
         break;
     }
-
-    return '${prefix}_${schema.name}.tsx';
+    final fileName = '${prefix}_${schema.name}'.snakeCase;
+    return '$fileName.tsx';
   }
 
   @override
-  String renderTemplate(schema) {
+  Template getTemplate(schema) {
     String templateName = '';
     switch (schema.viewType) {
       case ViewType.list:
-        templateName = 'list.jinja';
+        templateName = 'list';
         break;
       case ViewType.retrieve:
-        templateName = 'detail.jinja';
+        templateName = 'detail';
         break;
       case ViewType.edit:
-        templateName = 'edit.jinja';
+        templateName = 'edit';
         break;
       case ViewType.create:
         templateName = 'create.jinja';
         break;
       case ViewType.delete:
-        templateName = 'delete.jinja';
+        templateName = 'delete';
         break;
     }
 
-    return File('templates/antd/$templateName').readAsStringSync();
+    var path = Directory.current.uri.resolve('templates').toFilePath();
+    final environment = Environment(loader: FileSystemLoader(path: path));
+    return environment.getTemplate('antd/$templateName');
   }
 }

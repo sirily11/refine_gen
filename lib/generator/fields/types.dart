@@ -6,4 +6,5 @@ enum FieldType {
   file,
   datetime,
   boolean,
+  foreignKey,
 }

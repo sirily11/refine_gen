@@ -97,5 +97,54 @@ void main() {
 
       expect(outputSchema.viewType, ViewType.create);
     });
+
+    test('Convert with related model', () {
+      final inputSchema = drf.DRFSchema(
+        name: 'test',
+        fields: [
+          drf.Field(
+            name: 'test',
+            validations: drf.Validations(
+              length: drf.Length(maximum: 128),
+            ),
+            extra: drf.Extra(extraDefault: 'hello', relatedModel: 'test'),
+            widget: 'foreignkey',
+            label: 'test',
+            readonly: false,
+            required: false,
+            translated: false,
+          ),
+        ],
+        actions: drf.Actions(post: {
+          'test': drf.ActionItem(
+            label: 'test',
+            type: 'field',
+            readOnly: true,
+            required: true,
+          ),
+        }),
+        conditionalFormatting: drf.ConditionalFormatting(),
+        renders: [],
+        saveTwice: true,
+        searchEnabled: true,
+        description: '',
+        parses: [],
+      );
+
+      final adapter = DRFAdapter();
+      adapter.read(inputSchema);
+      final outputSchema = adapter.transform()[0];
+
+      expect(outputSchema.name, 'test');
+      expect(outputSchema.actions.length, 1);
+      expect(outputSchema.actions[0].name, 'test');
+      expect(outputSchema.actions[0].label, 'test');
+      expect(outputSchema.actions[0].type, FieldType.foreignKey);
+      expect(outputSchema.actions[0].readOnly, true);
+      expect(outputSchema.actions[0].required, true);
+      expect(outputSchema.actions[0] is ForeignKeyAction, true);
+      expect(
+          (outputSchema.actions[0] as ForeignKeyAction).relatedModel, 'test');
+    });
   });
 }

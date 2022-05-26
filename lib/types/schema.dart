@@ -18,16 +18,27 @@ enum ViewType {
   delete,
 }
 
-class FormSchema {
+extension ParseToString on ViewType {
+  String toShortString() {
+    return toString().split('.').last;
+  }
+}
+
+abstract class View {
   final ViewType viewType;
+
+  View(this.viewType);
+}
+
+class FormSchema extends View {
   final String name;
   final List<Action> actions;
 
   FormSchema({
-    required this.viewType,
+    required ViewType viewType,
     required this.name,
     required this.actions,
-  });
+  }) : super(viewType);
 }
 
 class Action {
@@ -48,4 +59,23 @@ class Action {
     this.maxLength,
     required this.readOnly,
   });
+}
+
+class ForeignKeyAction extends Action {
+  final String relatedModel;
+
+  ForeignKeyAction({
+    required FieldType type,
+    required String name,
+    required String label,
+    required bool required,
+    required bool readOnly,
+    required this.relatedModel,
+  }) : super(
+          type: type,
+          name: name,
+          label: label,
+          required: required,
+          readOnly: readOnly,
+        );
 }

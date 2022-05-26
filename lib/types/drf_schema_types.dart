@@ -182,9 +182,11 @@ class Field {
 class Extra {
   Extra({
     this.extraDefault,
+    this.relatedModel,
   });
 
   final String? extraDefault;
+  final String? relatedModel;
 
   factory Extra.fromRawJson(String str) => Extra.fromJson(json.decode(str));
 
@@ -192,10 +194,12 @@ class Extra {
 
   factory Extra.fromJson(Map<String, dynamic> json) => Extra(
         extraDefault: json['default'],
+        relatedModel: json['related_model'],
       );
 
   Map<String, dynamic> toJson() => {
         'default': extraDefault,
+        'related_model': relatedModel,
       };
 }
 
