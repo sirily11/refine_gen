@@ -7,9 +7,6 @@ import '../generator/fields/types.dart';
 /// [DRFAdapter] is a [Adapter] that can be used to convert [DRFSchema]
 /// to [FormSchema]
 class DRFAdapter extends Adapter<drf.DRFSchema, FormSchema> {
-  DRFAdapter({required drf.DRFSchema inputSchema})
-      : super(inputSchema: inputSchema);
-
   FieldType _mapFieldType(String fieldType) {
     switch (fieldType.toLowerCase()) {
       case 'text':

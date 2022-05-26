@@ -71,7 +71,8 @@ void main() {
         parses: [],
       );
 
-      final adapter = DRFAdapter(inputSchema: inputSchema);
+      final adapter = DRFAdapter();
+      adapter.read(inputSchema);
       final outputSchema = adapter.transform()[0];
 
       expect(outputSchema.name, 'test');

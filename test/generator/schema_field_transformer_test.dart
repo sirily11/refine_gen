@@ -33,7 +33,10 @@ void main() {
             maxLength: 10,
             readOnly: false),
       ]);
-      final transformer = SchemaFieldTransformer(inputSchema: inputSchema);
+
+      final transformer = SchemaFieldTransformer();
+      transformer.read(inputSchema);
+
       final fields = transformer.transform();
       expect(fields.length, equals(3));
       expect(fields[0].name, equals('name'));

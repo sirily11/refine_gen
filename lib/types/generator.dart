@@ -1,14 +1,28 @@
-import 'package:refine_gen/generator/generator.dart';
+import 'package:refine_gen/types/adapter.dart';
 import 'package:refine_gen/types/types.dart';
 
-abstract class Generator {
+abstract class Generator<V, T> {
   late List<Field> fields;
-  final List<FormSchema> inputSchema;
+  final V inputSchema;
   final Transformer transformer;
+  final Adapter<V, T> adapter;
 
-  Generator({required this.inputSchema, required this.transformer});
+  Generator({
+    required this.inputSchema,
+    required this.transformer,
+    required this.adapter,
+  });
 
   void transform() {
+    adapter.read(inputSchema);
+    final transformedSchema = adapter.transform();
+
+    fields = [];
+
+    for (final schema in transformedSchema) {
+      transformer.read(schema);
+      fields.addAll(transformer.transform());
+    }
     fields = transformer.transform();
   }
 

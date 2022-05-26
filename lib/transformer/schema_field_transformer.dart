@@ -15,11 +15,8 @@ Field _mapFields(FieldType type,
   }
 }
 
-class SchemaFieldTransformer implements Transformer {
-  @override
-  final FormSchema inputSchema;
-
-  SchemaFieldTransformer({required this.inputSchema});
+class SchemaFieldTransformer extends Transformer {
+  SchemaFieldTransformer();
 
   @override
   List<Field> transform() {
