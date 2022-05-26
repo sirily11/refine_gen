@@ -8,5 +8,6 @@ abstract class Adapter<T, V> {
     this.inputSchema = inputSchema;
   }
 
+  /// transform input to output.
   List<V> transform();
 }
