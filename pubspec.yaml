@@ -9,7 +9,9 @@ environment:
 
 dependencies:
   path: ^1.8.0
-  jinja: ^0.3.4
+  jinja: ^0.4.0-dev.31
+  dio: ^4.0.6
+  recase: ^4.0.0
 
 dev_dependencies:
   lints: ^1.0.0

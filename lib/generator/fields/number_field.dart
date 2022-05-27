@@ -1,8 +1,8 @@
 import '../../../types/field.dart';
 import './types.dart';
 
-class StringField extends Field {
-  StringField({
+class NumberField extends Field {
+  NumberField({
     required String name,
     required String label,
     required bool required,
@@ -21,11 +21,6 @@ class StringField extends Field {
 
   @override
   String renderCreate() {
-    String field = '<Input />';
-    if ((maxLength ?? 0) > 50) {
-      field = '<Input.TextArea />';
-    }
-
-    return '''<Form.Item label="$label" name="$name" required={${required ? 'true' : 'false'}}>$field</Form.Item>''';
+    return '''<Form.Item label="$label" name="$name" required={${required ? 'true' : 'false'}}><Input /></Form.Item>''';
   }
 }

@@ -1,8 +1,13 @@
 /// Adapter will transform T input to V output
 abstract class Adapter<T, V> {
-  final T inputSchema;
+  late T inputSchema;
 
-  Adapter({required this.inputSchema});
+  Adapter();
 
+  void read(T inputSchema) {
+    this.inputSchema = inputSchema;
+  }
+
+  /// transform input to output.
   List<V> transform();
 }

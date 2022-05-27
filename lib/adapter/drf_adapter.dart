@@ -7,12 +7,11 @@ import '../generator/fields/types.dart';
 /// [DRFAdapter] is a [Adapter] that can be used to convert [DRFSchema]
 /// to [FormSchema]
 class DRFAdapter extends Adapter<drf.DRFSchema, FormSchema> {
-  DRFAdapter({required drf.DRFSchema inputSchema})
-      : super(inputSchema: inputSchema);
-
   FieldType _mapFieldType(String fieldType) {
     switch (fieldType.toLowerCase()) {
       case 'text':
+      case 'string':
+      case 'field':
         return FieldType.string;
       case 'integer':
       case 'float':
@@ -28,7 +27,7 @@ class DRFAdapter extends Adapter<drf.DRFSchema, FormSchema> {
       case 'datetime':
         return FieldType.datetime;
       default:
-        return FieldType.string;
+        throw Exception('Unknown field type: $fieldType');
     }
   }
 
@@ -39,15 +38,27 @@ class DRFAdapter extends Adapter<drf.DRFSchema, FormSchema> {
     final outputSchemaActions = <Action>[];
     inputSchemaActions.forEach((key, value) {
       final correspondingField = inputSchemaFields[key];
-      final action = Action(
-        name: key,
-        label: value.label,
-        type: _mapFieldType(value.type),
-        readOnly: value.readOnly,
-        required: value.required,
-        maxLength: correspondingField?.validations.length?.maximum,
-        defaultValue: correspondingField?.extra.extraDefault,
-      );
+      late final Action action;
+      if (correspondingField?.extra.relatedModel != null) {
+        action = ForeignKeyAction(
+          name: key,
+          label: value.label,
+          type: FieldType.foreignKey,
+          readOnly: value.readOnly,
+          required: value.required,
+          relatedModel: correspondingField!.extra.relatedModel!,
+        );
+      } else {
+        action = Action(
+          name: key,
+          label: value.label,
+          type: _mapFieldType(value.type),
+          readOnly: value.readOnly,
+          required: value.required,
+          maxLength: correspondingField?.validations.length?.maximum,
+          defaultValue: correspondingField?.extra.extraDefault,
+        );
+      }
       outputSchemaActions.add(action);
     });
 
