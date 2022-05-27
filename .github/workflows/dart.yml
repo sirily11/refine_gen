@@ -27,9 +27,13 @@ jobs:
         run: dart test
       - name: Compile
         run: dart compile exe bin/refine_gen.dart -o refine_gen
-      - uses: montudor/action-zip@v1
+      - uses: papeloto/action-zip@v1
         with:
-          args: zip -qq -r ${{ matrix.os }}.zip refine_gen templates
+          files: |
+            templates
+            refine_gen
+          dest: ${{matrix.os}}.zip
+
 
   create-release:
     runs-on: ubuntu-latest
