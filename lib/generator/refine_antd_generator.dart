@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:jinja/jinja.dart';
 import 'package:jinja/loaders.dart';
 import 'package:refine_gen/adapter/drf_adapter.dart';
+import 'package:refine_gen/formatter/prettier.dart';
 import 'package:refine_gen/transformer/schema_field_transformer.dart';
 import 'package:refine_gen/types/drf_schema_types.dart';
 import 'package:refine_gen/types/types.dart';
@@ -18,10 +19,12 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
     required InputType inputSchema,
     Adapter<InputType, OutputType>? adapter,
     Transformer? transformer,
+    Formatter? formatter,
     required List<ViewType> viewTypes,
   }) : super(
           inputSchema: inputSchema,
           transformer: transformer ?? SchemaFieldTransformer(),
+          formatter: PrettierFormatter(),
           adapter: adapter ??
               DRFAdapter(
                 viewTypes: viewTypes,
