@@ -1,15 +1,31 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:refine_gen/refine_gen.dart';
 import 'package:refine_gen/types/drf_schema_types.dart';
+import 'package:yaml/yaml.dart';
+
+import 'config.dart';
+
+Future<List<String>> _getEndpoints(String baseURL) async {
+  final response = await Dio().get(baseURL);
+  final data = response.data;
+  final endpoints = data!.values.toList();
+  return List<String>.from(endpoints);
+}
 
 void main() async {
-  final urls = ['http://0.0.0.0:8000/api/maintenance/'];
+  final config = File('config.yaml');
+  final YamlMap configYaml = loadYaml(config.readAsStringSync());
+  final configObj = Config.fromYAML(configYaml);
+
+  final List<String> urls = await _getEndpoints(configObj.baseUrl);
   final fetchers = SchemaFetcher.fromList(urls);
   final results = await Future.wait(fetchers.map((f) => f.fetch()));
   final drfSchemas = results.map((r) => DRFSchema.fromJson(r)).toList();
 
-  final generator = RefineAntdGenerator(inputSchema: drfSchemas[0], viewTypes: [
-    ViewType.create,
-  ]);
+  final generator = RefineAntdGenerator(
+      inputSchema: drfSchemas[0], viewTypes: configObj.viewTypes);
   generator.render();
   print('finish');
 }
