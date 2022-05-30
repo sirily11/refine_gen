@@ -12,11 +12,13 @@ abstract class Generator<V, T extends View> {
   final Adapter<V, T> adapter;
   final environment = Environment();
   final String outputDir;
+  final List<ViewType> viewTypes;
 
   Generator({
     required this.inputSchema,
     required this.transformer,
     required this.adapter,
+    required this.viewTypes,
     this.outputDir = 'dist',
   }) {
     // Check if output directory exists

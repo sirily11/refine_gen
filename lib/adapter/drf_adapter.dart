@@ -7,6 +7,8 @@ import '../generator/fields/types.dart';
 /// [DRFAdapter] is a [Adapter] that can be used to convert [DRFSchema]
 /// to [FormSchema]
 class DRFAdapter extends Adapter<drf.DRFSchema, FormSchema> {
+  DRFAdapter({required List<ViewType> viewTypes}) : super(viewTypes: viewTypes);
+
   FieldType _mapFieldType(String fieldType) {
     switch (fieldType.toLowerCase()) {
       case 'text':
@@ -79,12 +81,14 @@ class DRFAdapter extends Adapter<drf.DRFSchema, FormSchema> {
     }
 
     if (inputSchema.actions.post != null) {
-      final postResult = _handleTransform(
-        inputSchemaActions: inputSchema.actions.post!,
-        inputSchemaFields: mapFields,
-        viewType: ViewType.create,
+      final results = viewTypes.map(
+        (viewType) => _handleTransform(
+          inputSchemaActions: inputSchema.actions.post!,
+          inputSchemaFields: mapFields,
+          viewType: viewType,
+        ),
       );
-      outputs.add(postResult);
+      outputs.addAll(results);
     }
 
     return outputs;
