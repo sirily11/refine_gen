@@ -21,6 +21,7 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
     Transformer? transformer,
     Formatter? formatter,
     required List<ViewType> viewTypes,
+    required String outputDir,
   }) : super(
           inputSchema: inputSchema,
           transformer: transformer ?? SchemaFieldTransformer(),
@@ -30,6 +31,7 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
                 viewTypes: viewTypes,
               ),
           viewTypes: viewTypes,
+          outputDir: outputDir,
         );
 
   @override
@@ -67,6 +69,7 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
         break;
     }
     final fileName = '${prefix}_${schema.name}'.snakeCase;
+
     return '$fileName.tsx';
   }
 

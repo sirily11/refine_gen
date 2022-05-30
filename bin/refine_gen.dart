@@ -26,7 +26,10 @@ void main() async {
 
   for (final drfSchema in drfSchemas) {
     final generator = RefineAntdGenerator(
-        inputSchema: drfSchema, viewTypes: configObj.viewTypes);
+      inputSchema: drfSchema,
+      viewTypes: configObj.viewTypes,
+      outputDir: configObj.outFolder,
+    );
     generator.render();
   }
 
