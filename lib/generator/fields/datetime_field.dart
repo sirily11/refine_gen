@@ -29,4 +29,9 @@ class DatetimeField extends Field {
     return ''' <Table.Column dataIndex="$name" title="$label" render={(value) => <DateField format={"LLL"} value={value} />} />
 ''';
   }
+
+  @override
+  String renderEdit() {
+    return renderCreate();
+  }
 }

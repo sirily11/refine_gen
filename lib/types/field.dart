@@ -96,7 +96,7 @@ abstract class ModelField extends Field {
   String renderSelection(ViewType viewType) {
     final string = path.basename(foreignKey);
 
-    String defaultValue = 'defaultValue: result.id,';
+    String defaultValue = 'defaultValue: queryResult?.data?.data?.$name?.id,';
 
     if (viewType == ViewType.create) {
       defaultValue = '';

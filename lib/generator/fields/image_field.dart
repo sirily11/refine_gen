@@ -45,4 +45,9 @@ class ImageField extends Field {
     return ''' <Table.Column dataIndex="$name" title="$label" render={(value) =>  <ImageField value={value} width={300} />} />
 ''';
   }
+
+  @override
+  String renderEdit() {
+    return renderCreate();
+  }
 }

@@ -19,11 +19,19 @@ import {
 {% block fields %}
     return (
         //@ts-ignore
-        <List saveButtonProps={saveButtonProps}>
+        <List>
            <Table {...tableProps} rowKey="id">
                 {% for field in fields -%}
                     {{ field }}
                 {% endfor -%}
+                 <Table.Column
+                    dataIndex={"actions"}
+                    render={(_text, record: any): React.ReactNode => {
+                        return (
+                        <ShowButton size="small" recordItemId={record.id} hideText />
+                        );
+                    }}
+                    />
            </Table>
         </List>
     );

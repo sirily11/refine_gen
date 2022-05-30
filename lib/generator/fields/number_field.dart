@@ -29,4 +29,9 @@ class NumberField extends Field {
     return ''' <Table.Column dataIndex="$name" title="$label" render={(value) => <TagField value={value} />} />
 ''';
   }
+
+  @override
+  String renderEdit() {
+    return renderCreate();
+  }
 }
