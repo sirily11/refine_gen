@@ -25,4 +25,10 @@ class ForeignKeyField extends ModelField {
           <Select {...$selectionName } />
         </Form.Item>''';
   }
+
+  @override
+  String renderList() {
+    return ''' <Table.Column dataIndex="$name" title="$label" render={(value) => <TagField value={value} />} />
+''';
+  }
 }

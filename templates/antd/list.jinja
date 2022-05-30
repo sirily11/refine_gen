@@ -1,0 +1,30 @@
+{% extends "antd/function.jinja" %}
+{% block import -%}
+import { 
+  List,  
+  TextField,
+  TagField,
+  DateField,
+  ImageField,
+  Table,
+  useTable,
+  ShowButton
+  } from "@pankod/refine-antd";
+{% endblock -%}
+
+{% block setup %}
+     const { tableProps } = useTable<any>();
+{% endblock %}
+
+{% block fields %}
+    return (
+        //@ts-ignore
+        <List saveButtonProps={saveButtonProps}>
+           <Table {...tableProps} rowKey="id">
+                {% for field in fields -%}
+                    {{ field }}
+                {% endfor -%}
+           </Table>
+        </List>
+    );
+{% endblock %}

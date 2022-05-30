@@ -39,4 +39,10 @@ class ImageField extends Field {
           </Form.Item>
         </Form.Item>''';
   }
+
+  @override
+  String renderList() {
+    return ''' <Table.Column dataIndex="$name" title="$label" render={(value) =>  <ImageField value={value} width={300} />} />
+''';
+  }
 }

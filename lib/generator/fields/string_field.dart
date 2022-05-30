@@ -28,4 +28,10 @@ class StringField extends Field {
 
     return '''<Form.Item label="$label" name="$name" required={${required ? 'true' : 'false'}}>$field</Form.Item>''';
   }
+
+  @override
+  String renderList() {
+    return ''' <Table.Column dataIndex="$name" title="$label" render={(value) => <TagField value={value} />} />
+''';
+  }
 }

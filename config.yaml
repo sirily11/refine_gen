@@ -1,5 +1,0 @@
-baseURL: http://0.0.0.0:8000/api
-viewTypes:
-  - create
-
-outFolder: /Users/sirily11/Desktop/flightsafe/frontend/apps/admin/src/pages/generated

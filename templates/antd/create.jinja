@@ -1,6 +1,15 @@
 {% extends "antd/function.jinja" %}
 {% block import -%}
-import { Create } from "@pankod/refine-antd";
+import {
+  Form,
+  Input,
+  Select,
+  useForm,
+  useSelect,
+  getValueFromEvent,
+  Upload,
+  Create,
+} from "@pankod/refine-antd";
 {% endblock -%}
 
 {% block selections %}
@@ -19,7 +28,9 @@ import { Create } from "@pankod/refine-antd";
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical" >
                 {% for field in fields -%}
-                    {{ field }}
+                    {% if not readOnlys[loop.index0] %}
+                        {{ field }}
+                    {% endif %}
                 {% endfor -%}
             </Form>
         </Create>

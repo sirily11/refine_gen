@@ -23,4 +23,10 @@ class DatetimeField extends Field {
   String renderCreate() {
     return '''<Form.Item label="$label" name="$name" required={${required ? 'true' : 'false'}}><Input /></Form.Item>''';
   }
+
+  @override
+  String renderList() {
+    return ''' <Table.Column dataIndex="$name" title="$label" render={(value) => <DateField format={"LLL"} value={value} />} />
+''';
+  }
 }

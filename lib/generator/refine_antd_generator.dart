@@ -40,17 +40,30 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
     required schema,
     required List<String> selections,
   }) {
+    final readOnlyMaps = schema.actions.map((e) => e.readOnly).toList();
+    final prefix = _getPrefixByViewType(schema);
+    final componentName =
+        '${prefix}_${schema.name.replaceAll("List", "")}'.pascalCase;
+
     return {
       'fields': fields,
       'selections': selections,
-      'componentName': schema.name.pascalCase,
+      'readOnlys': readOnlyMaps,
+      'componentName': componentName,
       'viewType': schema.viewType
     };
   }
 
   @override
   String outputFileName(schema) {
-    String prefix = '';
+    final prefix = _getPrefixByViewType(schema);
+    final fileName = '${prefix}_${schema.name}'.snakeCase;
+
+    return '$fileName.tsx';
+  }
+
+  String _getPrefixByViewType(OutputType schema) {
+    String prefix;
     switch (schema.viewType) {
       case ViewType.list:
         prefix = 'list';
@@ -68,9 +81,7 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
         prefix = 'delete';
         break;
     }
-    final fileName = '${prefix}_${schema.name}'.snakeCase;
-
-    return '$fileName.tsx';
+    return prefix;
   }
 
   @override
@@ -78,10 +89,10 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
     String templateName = '';
     switch (schema.viewType) {
       case ViewType.list:
-        templateName = 'list';
+        templateName = 'list.jinja';
         break;
       case ViewType.retrieve:
-        templateName = 'detail';
+        templateName = 'detail.jinja';
         break;
       case ViewType.edit:
         templateName = 'edit.jinja';
@@ -90,7 +101,7 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
         templateName = 'create.jinja';
         break;
       case ViewType.delete:
-        templateName = 'delete';
+        templateName = 'delete.jinja';
         break;
     }
 

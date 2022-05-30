@@ -34,10 +34,6 @@ abstract class Field {
   /// Render field to string
   /// If field is readOnly, it will return null.
   String? render(ViewType viewType) {
-    if (readOnly) {
-      return null;
-    }
-
     switch (viewType) {
       case ViewType.list:
         return renderList();
