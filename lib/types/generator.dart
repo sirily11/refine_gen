@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:refine_gen/types/adapter.dart';
+import 'package:refine_gen/types/formatter.dart';
 import 'package:refine_gen/types/types.dart';
 import 'package:jinja/jinja.dart';
 import 'package:path/path.dart' as path;
@@ -13,18 +14,22 @@ abstract class Generator<V, T extends View> {
   final environment = Environment();
   final String outputDir;
   final List<ViewType> viewTypes;
+  final Formatter formatter;
 
   Generator({
     required this.inputSchema,
     required this.transformer,
     required this.adapter,
     required this.viewTypes,
+    required this.formatter,
     this.outputDir = 'dist',
   }) {
     // Check if output directory exists
     if (!Directory(outputDir).existsSync()) {
       Directory(outputDir).createSync(recursive: true);
     }
+
+    formatter.initialize();
   }
 
   void _transform() {
@@ -74,6 +79,14 @@ abstract class Generator<V, T extends View> {
       final outputFile = File(path.join(outputDir, outputFilename));
       print('Generating $outputFilename');
       outputFile.writeAsStringSync(result);
+      // format the file
+      final formattedResult = formatter.format(
+        code: result,
+        fileName: outputFile.path,
+      );
+      if (formattedResult != null) {
+        outputFile.writeAsStringSync(formattedResult);
+      }
     }
   }
 }

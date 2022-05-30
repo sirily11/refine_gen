@@ -1,5 +1,3 @@
-import 'package:refine_gen/fetcher/schema_fetcher.dart';
-import 'package:refine_gen/generator/refine_antd_generator.dart';
 import 'package:refine_gen/refine_gen.dart';
 import 'package:refine_gen/types/drf_schema_types.dart';
 
