@@ -21,6 +21,22 @@ class ImageField extends Field {
 
   @override
   String renderCreate() {
-    return '''<Form.Item label="$label" name="$name" required={${required ? 'true' : 'false'}}><Input /></Form.Item>''';
+    return '''<Form.Item label="$label" name={"$name"} required>
+          <Form.Item
+            name="$name"
+            valuePropName="file"
+            getValueFromEvent={getValueFromEvent}
+            noStyle
+          >
+            <Upload.Dragger
+              name="$name"
+              accept="image/png, image/gif, image/jpeg"
+              multiple={false}
+              maxCount={1}
+            >
+              <p className="ant-upload-drag-icon">Drag image here</p>
+            </Upload.Dragger>
+          </Form.Item>
+        </Form.Item>''';
   }
 }

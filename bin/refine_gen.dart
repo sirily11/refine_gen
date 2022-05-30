@@ -24,8 +24,11 @@ void main() async {
   final results = await Future.wait(fetchers.map((f) => f.fetch()));
   final drfSchemas = results.map((r) => DRFSchema.fromJson(r)).toList();
 
-  final generator = RefineAntdGenerator(
-      inputSchema: drfSchemas[0], viewTypes: configObj.viewTypes);
-  generator.render();
+  for (final drfSchema in drfSchemas) {
+    final generator = RefineAntdGenerator(
+        inputSchema: drfSchema, viewTypes: configObj.viewTypes);
+    generator.render();
+  }
+
   print('finish');
 }

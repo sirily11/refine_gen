@@ -22,7 +22,10 @@ void main() {
       drf.Field(
         name: 'name',
         validations: drf.Validations(),
-        extra: drf.Extra(extraDefault: 'hello'),
+        extra: drf.Extra(
+          extraDefault: 'hello',
+          choices: [drf.Choice(label: 'hello', value: 'world')],
+        ),
         widget: 'integer',
         label: 'test',
         readonly: false,

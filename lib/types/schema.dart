@@ -41,6 +41,23 @@ class FormSchema extends View {
   }) : super(viewType);
 }
 
+class Choice {
+  final String label;
+  final String value;
+
+  Choice({
+    required this.label,
+    required this.value,
+  });
+
+  toJson() {
+    return {
+      'label': label,
+      'value': value,
+    };
+  }
+}
+
 class Action {
   final FieldType type;
   final String name;
@@ -49,6 +66,7 @@ class Action {
   final String? defaultValue;
   final int? maxLength;
   final bool readOnly;
+  final List<Choice>? choices;
 
   Action({
     required this.type,
@@ -58,6 +76,7 @@ class Action {
     this.defaultValue,
     this.maxLength,
     required this.readOnly,
+    this.choices,
   });
 }
 

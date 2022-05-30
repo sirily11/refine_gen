@@ -81,7 +81,7 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
         templateName = 'detail';
         break;
       case ViewType.edit:
-        templateName = 'edit';
+        templateName = 'edit.jinja';
         break;
       case ViewType.create:
         templateName = 'create.jinja';
