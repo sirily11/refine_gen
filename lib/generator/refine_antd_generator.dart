@@ -18,10 +18,15 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
     required InputType inputSchema,
     Adapter<InputType, OutputType>? adapter,
     Transformer? transformer,
+    required List<ViewType> viewTypes,
   }) : super(
           inputSchema: inputSchema,
           transformer: transformer ?? SchemaFieldTransformer(),
-          adapter: adapter ?? DRFAdapter(),
+          adapter: adapter ??
+              DRFAdapter(
+                viewTypes: viewTypes,
+              ),
+          viewTypes: viewTypes,
         );
 
   @override

@@ -71,31 +71,40 @@ void main() {
         parses: [],
       );
 
-      final adapter = DRFAdapter();
+      final adapter = DRFAdapter(viewTypes: [
+        ViewType.create,
+        ViewType.delete,
+        ViewType.edit,
+        ViewType.list
+      ]);
       adapter.read(inputSchema);
-      final outputSchema = adapter.transform()[0];
 
-      expect(outputSchema.name, 'test');
-      expect(outputSchema.actions.length, 3);
-      expect(outputSchema.actions[0].name, 'test');
-      expect(outputSchema.actions[0].label, 'test');
-      expect(outputSchema.actions[0].type, FieldType.string);
-      expect(outputSchema.actions[0].readOnly, true);
-      expect(outputSchema.actions[0].required, true);
+      final results = adapter.transform();
 
-      expect(outputSchema.actions[1].name, 'name');
-      expect(outputSchema.actions[1].label, 'name');
-      expect(outputSchema.actions[1].type, FieldType.number);
-      expect(outputSchema.actions[1].readOnly, false);
-      expect(outputSchema.actions[1].required, true);
+      expect(results.length, 4);
+      final createSchema = results[0];
 
-      expect(outputSchema.actions[2].name, 'description');
-      expect(outputSchema.actions[2].label, 'description');
-      expect(outputSchema.actions[2].type, FieldType.image);
-      expect(outputSchema.actions[2].readOnly, false);
-      expect(outputSchema.actions[2].required, true);
+      expect(createSchema.name, 'test');
+      expect(createSchema.actions.length, 3);
+      expect(createSchema.actions[0].name, 'test');
+      expect(createSchema.actions[0].label, 'test');
+      expect(createSchema.actions[0].type, FieldType.string);
+      expect(createSchema.actions[0].readOnly, true);
+      expect(createSchema.actions[0].required, true);
 
-      expect(outputSchema.viewType, ViewType.create);
+      expect(createSchema.actions[1].name, 'name');
+      expect(createSchema.actions[1].label, 'name');
+      expect(createSchema.actions[1].type, FieldType.number);
+      expect(createSchema.actions[1].readOnly, false);
+      expect(createSchema.actions[1].required, true);
+
+      expect(createSchema.actions[2].name, 'description');
+      expect(createSchema.actions[2].label, 'description');
+      expect(createSchema.actions[2].type, FieldType.image);
+      expect(createSchema.actions[2].readOnly, false);
+      expect(createSchema.actions[2].required, true);
+
+      expect(createSchema.viewType, ViewType.create);
     });
 
     test('Convert with related model', () {
@@ -131,7 +140,9 @@ void main() {
         parses: [],
       );
 
-      final adapter = DRFAdapter();
+      final adapter = DRFAdapter(viewTypes: [
+        ViewType.create,
+      ]);
       adapter.read(inputSchema);
       final outputSchema = adapter.transform()[0];
 

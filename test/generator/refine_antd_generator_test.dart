@@ -70,7 +70,10 @@ void main() {
 
   group('Given a refine antd generator', () {
     test('generate file name', () {
-      final generator = RefineAntdGenerator(inputSchema: inputSchema);
+      final generator = RefineAntdGenerator(
+        inputSchema: inputSchema,
+        viewTypes: [ViewType.create],
+      );
       final result = generator.outputFileName(
         FormSchema(
           viewType: ViewType.create,
@@ -82,7 +85,10 @@ void main() {
     });
 
     test('generate file name', () {
-      final generator = RefineAntdGenerator(inputSchema: inputSchema);
+      final generator = RefineAntdGenerator(
+        inputSchema: inputSchema,
+        viewTypes: [ViewType.create],
+      );
       final result = generator.outputFileName(
         FormSchema(
           viewType: ViewType.delete,
@@ -94,7 +100,10 @@ void main() {
     });
 
     test('generate file name', () {
-      final generator = RefineAntdGenerator(inputSchema: inputSchema);
+      final generator = RefineAntdGenerator(
+        inputSchema: inputSchema,
+        viewTypes: [ViewType.create],
+      );
       final result = generator.outputFileName(
         FormSchema(
           viewType: ViewType.edit,
@@ -106,7 +115,10 @@ void main() {
     });
 
     test('generate file name', () {
-      final generator = RefineAntdGenerator(inputSchema: inputSchema);
+      final generator = RefineAntdGenerator(
+        inputSchema: inputSchema,
+        viewTypes: [ViewType.create],
+      );
       final result = generator.outputFileName(
         FormSchema(
           viewType: ViewType.list,
@@ -118,7 +130,10 @@ void main() {
     });
 
     test('generate file name', () {
-      final generator = RefineAntdGenerator(inputSchema: inputSchema);
+      final generator = RefineAntdGenerator(
+        inputSchema: inputSchema,
+        viewTypes: [ViewType.create],
+      );
       final result = generator.outputFileName(
         FormSchema(
           viewType: ViewType.retrieve,
