@@ -59,6 +59,9 @@ class DRFAdapter extends Adapter<drf.DRFSchema, FormSchema> {
           required: value.required,
           maxLength: correspondingField?.validations.length?.maximum,
           defaultValue: correspondingField?.extra.extraDefault,
+          choices: correspondingField?.extra.choices
+              ?.map((e) => Choice(label: e.label, value: e.value))
+              .toList(),
         );
       }
       outputSchemaActions.add(action);

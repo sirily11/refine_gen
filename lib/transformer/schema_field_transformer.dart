@@ -10,6 +10,7 @@ Field _mapFields(
   required int? maxLength,
   required String? defaultValue,
   required String? relatedModel,
+  required List<Choice>? choices,
 }) {
   switch (type) {
     case FieldType.string:
@@ -47,6 +48,7 @@ Field _mapFields(
         readOnly: readOnly,
         maxLength: maxLength,
         defaultValue: defaultValue,
+        choices: choices!,
       );
     case FieldType.foreignKey:
       return ForeignKeyField(
@@ -57,6 +59,15 @@ Field _mapFields(
         maxLength: maxLength,
         defaultValue: defaultValue,
         relatedModel: relatedModel!,
+      );
+    case FieldType.image:
+      return ImageField(
+        name: name,
+        label: label,
+        required: required,
+        readOnly: readOnly,
+        maxLength: maxLength,
+        defaultValue: defaultValue,
       );
     default:
       throw Exception('Unsupported field type: $type');
@@ -81,6 +92,7 @@ class SchemaFieldTransformer extends Transformer {
           maxLength: action.maxLength,
           defaultValue: action.defaultValue,
           relatedModel: action.relatedModel,
+          choices: null,
         );
       } else {
         field = _mapFields(
@@ -92,6 +104,7 @@ class SchemaFieldTransformer extends Transformer {
           maxLength: action.maxLength,
           defaultValue: action.defaultValue,
           relatedModel: null,
+          choices: action.choices,
         );
       }
       fields.add(field);

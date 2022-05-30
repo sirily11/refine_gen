@@ -183,10 +183,12 @@ class Extra {
   Extra({
     this.extraDefault,
     this.relatedModel,
+    this.choices,
   });
 
   final String? extraDefault;
   final String? relatedModel;
+  final List<Choice>? choices;
 
   factory Extra.fromRawJson(String str) => Extra.fromJson(json.decode(str));
 
@@ -195,11 +197,45 @@ class Extra {
   factory Extra.fromJson(Map<String, dynamic> json) => Extra(
         extraDefault: json['default'],
         relatedModel: json['related_model'],
+        choices: json['choices'] == null
+            ? null
+            : List<Choice>.from(json['choices'].map((x) => Choice.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         'default': extraDefault,
         'related_model': relatedModel,
+        'choices': choices == null
+            ? null
+            : List<dynamic>.from(
+                choices!.map(
+                  (x) => x.toJson(),
+                ),
+              ),
+      };
+}
+
+class Choice {
+  Choice({
+    required this.label,
+    required this.value,
+  });
+
+  final String label;
+  final String value;
+
+  factory Choice.fromRawJson(String str) => Choice.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Choice.fromJson(Map<String, dynamic> json) => Choice(
+        label: json['label'],
+        value: json['value'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        'label': label,
+        'value': value,
       };
 }
 
