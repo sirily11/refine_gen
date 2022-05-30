@@ -58,6 +58,15 @@ Field _mapFields(
         defaultValue: defaultValue,
         relatedModel: relatedModel!,
       );
+    case FieldType.image:
+      return ImageField(
+        name: name,
+        label: label,
+        required: required,
+        readOnly: readOnly,
+        maxLength: maxLength,
+        defaultValue: defaultValue,
+      );
     default:
       throw Exception('Unsupported field type: $type');
   }
