@@ -8,7 +8,10 @@ import {
   ImageField,
   Table,
   useTable,
-  ShowButton
+  ShowButton,
+  EditButton,
+  DeleteButton,
+  Space,
   } from "@pankod/refine-antd";
 {% endblock -%}
 
@@ -26,12 +29,14 @@ import {
                 {% endfor -%}
                  <Table.Column
                     dataIndex={"actions"}
-                    render={(_text, record: any): React.ReactNode => {
-                        return (
+                    render={(_text, record: any): React.ReactNode =>    
+                    <Space>
                         <ShowButton size="small" recordItemId={record.id} hideText />
-                        );
-                    }}
-                    />
+                        <EditButton size="small" recordItemId={record.id} hideText />
+                        <DeleteButton size="small" recordItemId={record.id} hideText />
+                    </Space>
+                    }
+                />
            </Table>
         </List>
     );
