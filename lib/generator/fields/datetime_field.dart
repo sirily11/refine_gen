@@ -39,4 +39,9 @@ class DatetimeField extends Field {
   String renderEdit() {
     return renderCreate();
   }
+
+  @override
+  String? renderEditInitialValue() {
+    return '$name: dayjs(formProps.initialValues?.$name)';
+  }
 }

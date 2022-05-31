@@ -39,6 +39,7 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
     required List<String> fields,
     required schema,
     required List<String> selections,
+    required List<String> initialValues,
   }) {
     final readOnlyMaps = schema.actions.map((e) => e.readOnly).toList();
     final prefix = _getPrefixByViewType(schema);
@@ -47,6 +48,7 @@ class RefineAntdGenerator extends Generator<InputType, OutputType> {
 
     return {
       'fields': fields,
+      'initialValues': initialValues,
       'selections': selections,
       'readOnlys': readOnlyMaps,
       'componentName': componentName,

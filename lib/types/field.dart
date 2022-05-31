@@ -48,6 +48,41 @@ abstract class Field {
     }
   }
 
+  String? renderInitialValue(ViewType viewType) {
+    switch (viewType) {
+      case ViewType.list:
+        return renderListInitialValue();
+      case ViewType.retrieve:
+        return renderDetailInitialValue();
+      case ViewType.edit:
+        return renderEditInitialValue();
+      case ViewType.create:
+        return renderCreateInitialValue();
+      case ViewType.delete:
+        return renderDeleteInitialValue();
+    }
+  }
+
+  String? renderListInitialValue() {
+    return null;
+  }
+
+  String? renderDetailInitialValue() {
+    return null;
+  }
+
+  String? renderEditInitialValue() {
+    return null;
+  }
+
+  String? renderCreateInitialValue() {
+    return null;
+  }
+
+  String? renderDeleteInitialValue() {
+    return null;
+  }
+
   String renderList() {
     throw UnimplementedError();
   }
