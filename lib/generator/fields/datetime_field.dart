@@ -21,7 +21,7 @@ class DatetimeField extends Field {
 
   @override
   String renderCreate() {
-    return '''<Form.Item label="$label" name="$name" required={${required ? 'true' : 'false'}}><DatePicker /></Form.Item>''';
+    return '''<Form.Item label="$label" name="$name" required={${required ? 'true' : 'false'}}><DatePicker showTime/></Form.Item>''';
   }
 
   @override
