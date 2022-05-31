@@ -33,6 +33,11 @@ class ForeignKeyField extends ModelField {
   }
 
   @override
+  String renderDetail() {
+    return '''<Title level={5}>$label</Title><Text>{$selectionName?.data?.title}</Text>''';
+  }
+
+  @override
   String renderEdit() {
     return renderCreate();
   }

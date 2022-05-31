@@ -47,6 +47,11 @@ class ImageField extends Field {
   }
 
   @override
+  String renderDetail() {
+    return '''<Title level={5}>$label</Title><ImageField value={record?.$name} width={"50%"}/>''';
+  }
+
+  @override
   String renderEdit() {
     return renderCreate();
   }
