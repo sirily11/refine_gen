@@ -7,11 +7,14 @@ class Config {
   Config({
     required this.baseUrl,
     required this.viewTypes,
+    required this.outFolder,
   });
 
   final String baseUrl;
 
   final List<ViewType> viewTypes;
+
+  final String outFolder;
 
   static ViewType _viewTypeFromString(String viewType) {
     switch (viewType) {
@@ -37,6 +40,7 @@ class Config {
             (x) => _viewTypeFromString(x),
           ),
         ),
+        outFolder: json['outFolder'],
       );
 
   factory Config.fromYAML(YamlMap yaml) => Config(
@@ -46,5 +50,6 @@ class Config {
             (x) => _viewTypeFromString(x),
           ),
         ),
+        outFolder: yaml['outFolder'],
       );
 }

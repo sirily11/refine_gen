@@ -34,10 +34,6 @@ abstract class Field {
   /// Render field to string
   /// If field is readOnly, it will return null.
   String? render(ViewType viewType) {
-    if (readOnly) {
-      return null;
-    }
-
     switch (viewType) {
       case ViewType.list:
         return renderList();
@@ -100,7 +96,7 @@ abstract class ModelField extends Field {
   String renderSelection(ViewType viewType) {
     final string = path.basename(foreignKey);
 
-    String defaultValue = 'defaultValue: result.id,';
+    String defaultValue = 'defaultValue: queryResult?.data?.data?.$name?.id,';
 
     if (viewType == ViewType.create) {
       defaultValue = '';

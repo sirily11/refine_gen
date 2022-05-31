@@ -1,0 +1,43 @@
+{% extends "antd/function.jinja" %}
+{% block import -%}
+import { 
+  List,  
+  TextField,
+  TagField,
+  DateField,
+  ImageField,
+  Table,
+  useTable,
+  ShowButton,
+  EditButton,
+  DeleteButton,
+  Space,
+  } from "@pankod/refine-antd";
+{% endblock -%}
+
+{% block setup %}
+     const { tableProps } = useTable<any>();
+{% endblock %}
+
+{% block fields %}
+    return (
+        //@ts-ignore
+        <List>
+           <Table {...tableProps} rowKey="id">
+                {% for field in fields -%}
+                    {{ field }}
+                {% endfor -%}
+                 <Table.Column
+                    dataIndex={"actions"}
+                    render={(_text, record: any): React.ReactNode =>    
+                    <Space>
+                        <ShowButton size="small" recordItemId={record.id} hideText />
+                        <EditButton size="small" recordItemId={record.id} hideText />
+                        <DeleteButton size="small" recordItemId={record.id} hideText />
+                    </Space>
+                    }
+                />
+           </Table>
+        </List>
+    );
+{% endblock %}
