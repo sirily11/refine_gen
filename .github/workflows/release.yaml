@@ -33,8 +33,4 @@ jobs:
             templates
             refine_gen
           dest: ${{matrix.os}}.zip
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: ${{ matrix.os }}.zip
+      - run: zip -qq templates refine_gen -o ${{matrix.os}}.zip
