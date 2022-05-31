@@ -31,6 +31,11 @@ class NumberField extends Field {
   }
 
   @override
+  String renderDetail() {
+    return '''<Title level={5}>$label</Title><Text>{record?.$name}</Text>''';
+  }
+
+  @override
   String renderEdit() {
     return renderCreate();
   }

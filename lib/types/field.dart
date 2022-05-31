@@ -94,13 +94,35 @@ abstract class ModelField extends Field {
   String get selectionName => '${name}Selection';
 
   String renderSelection(ViewType viewType) {
+    switch (viewType) {
+      case ViewType.list:
+        return renderListSelection();
+      case ViewType.retrieve:
+        return renderDetailSelection();
+      case ViewType.edit:
+        return renderEditSelection();
+      case ViewType.create:
+        return renderCreateSelection();
+      case ViewType.delete:
+        return renderDeleteSelection();
+    }
+  }
+
+  String renderCreateSelection() {
+    final string = path.basename(foreignKey);
+
+    return '''const { selectProps: $selectionName } = useSelect({
+    resource: "$string",
+    optionLabel: "title",
+    optionValue: "id"
+  });
+''';
+  }
+
+  String renderEditSelection() {
     final string = path.basename(foreignKey);
 
     String defaultValue = 'defaultValue: queryResult?.data?.data?.$name?.id,';
-
-    if (viewType == ViewType.create) {
-      defaultValue = '';
-    }
 
     return '''const { selectProps: $selectionName } = useSelect({
     resource: "$string",
@@ -109,5 +131,26 @@ abstract class ModelField extends Field {
     $defaultValue
   });
 ''';
+  }
+
+  String renderListSelection() {
+    return renderCreateSelection();
+  }
+
+  String renderDetailSelection() {
+    final string = path.basename(foreignKey);
+
+    return '''const { data: $selectionName } = useOne({
+    resource: "$string",
+    id: record?.$name,
+    queryOptions: {
+          enabled: !!record?.$name,
+    },
+  });
+''';
+  }
+
+  String renderDeleteSelection() {
+    return renderCreateSelection();
   }
 }
