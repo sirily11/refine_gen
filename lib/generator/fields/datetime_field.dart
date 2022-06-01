@@ -21,7 +21,7 @@ class DatetimeField extends Field {
 
   @override
   String renderCreate() {
-    return '''<Form.Item label="$label" name="$name" required={${required ? 'true' : 'false'}}><Input /></Form.Item>''';
+    return '''<Form.Item label="$label" name="$name" required={${required ? 'true' : 'false'}}><DatePicker showTime/></Form.Item>''';
   }
 
   @override
@@ -38,5 +38,10 @@ class DatetimeField extends Field {
   @override
   String renderEdit() {
     return renderCreate();
+  }
+
+  @override
+  String? renderEditInitialValue() {
+    return '$name: dayjs(formProps.initialValues?.$name)';
   }
 }

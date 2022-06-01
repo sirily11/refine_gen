@@ -195,7 +195,9 @@ class Extra {
   String toRawJson() => json.encode(toJson());
 
   factory Extra.fromJson(Map<String, dynamic> json) => Extra(
-        extraDefault: json['default'],
+        extraDefault:
+            // ignore: prefer_null_aware_operators
+            json['default'] == null ? null : json['default'].toString(),
         relatedModel: json['related_model'],
         choices: json['choices'] == null
             ? null

@@ -41,10 +41,12 @@ abstract class Generator<V, T extends View> {
   Template getTemplate(T schema);
 
   // get jinja render context
-  Map<String, dynamic> renderMap(
-      {required List<String> fields,
-      required T schema,
-      required List<String> selections});
+  Map<String, dynamic> renderMap({
+    required List<String> fields,
+    required T schema,
+    required List<String> selections,
+    required List<String> initialValues,
+  });
 
   // get output file name based on the schema
   String outputFileName(T schema);
@@ -59,6 +61,8 @@ abstract class Generator<V, T extends View> {
       final fields = transformer.transform();
       final List<String> renderedFields = [];
       final List<String> renderedSelections = [];
+      final List<String> renderedInitialValues = [];
+
       for (var field in fields) {
         final renderedString = field.render(schema.viewType);
         if (field is ModelField) {
@@ -68,11 +72,17 @@ abstract class Generator<V, T extends View> {
         if (renderedString != null) {
           renderedFields.add(renderedString);
         }
+
+        final renderedInitialValue = field.renderInitialValue(schema.viewType);
+        if (renderedInitialValue != null) {
+          renderedInitialValues.add(renderedInitialValue);
+        }
       }
       final result = readTemplate.render(renderMap(
         fields: renderedFields,
         schema: schema,
         selections: renderedSelections,
+        initialValues: renderedInitialValues,
       ));
 
       final outputFilename = outputFileName(schema);

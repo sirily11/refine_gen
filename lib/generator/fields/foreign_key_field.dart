@@ -21,7 +21,7 @@ class ForeignKeyField extends ModelField {
 
   @override
   String renderCreate() {
-    return ''' <Form.Item label="$label" name={"$name"}>
+    return ''' <Form.Item label="$label" name={"$name"} required={${required ? 'true' : 'false'}}>
           <Select {...$selectionName } />
         </Form.Item>''';
   }

@@ -21,7 +21,7 @@ class ImageField extends Field {
 
   @override
   String renderCreate() {
-    return '''<Form.Item label="$label" name={"$name"} required>
+    return '''<Form.Item label="$label" name={"$name"} required={${required ? 'true' : 'false'}}>
           <Form.Item
             name="$name"
             valuePropName="file"

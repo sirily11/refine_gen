@@ -12,4 +12,6 @@ viewTypes:
   - list
   - edit
   - detail
+excludePaths:
+  - user
 ```

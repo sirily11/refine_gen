@@ -8,6 +8,7 @@ class Config {
     required this.baseUrl,
     required this.viewTypes,
     required this.outFolder,
+    required this.excludePaths,
   });
 
   final String baseUrl;
@@ -15,6 +16,8 @@ class Config {
   final List<ViewType> viewTypes;
 
   final String outFolder;
+
+  final List<String> excludePaths;
 
   static ViewType _viewTypeFromString(String viewType) {
     switch (viewType) {
@@ -41,6 +44,7 @@ class Config {
           ),
         ),
         outFolder: json['outFolder'],
+        excludePaths: List<String>.from(json['excludePaths']),
       );
 
   factory Config.fromYAML(YamlMap yaml) => Config(
@@ -51,5 +55,6 @@ class Config {
           ),
         ),
         outFolder: yaml['outFolder'],
+        excludePaths: List<String>.from(yaml['excludePaths']),
       );
 }

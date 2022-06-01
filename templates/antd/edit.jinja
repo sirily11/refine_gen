@@ -9,7 +9,9 @@ import {
   getValueFromEvent,
   Upload,
   Edit,
+  DatePicker
 } from "@pankod/refine-antd";
+import dayjs from "dayjs"
 {% endblock -%}
 
 {% block selections %}
@@ -23,10 +25,20 @@ import {
 {% endblock %}
 
 {% block fields %}
+    const initialValues = {
+        ...formProps.initialValues, 
+        {% for initialValue in initialValues -%}
+            {{ initialValue }},
+        {% endfor %}
+    };
+
     return (
         //@ts-ignore
         <Edit saveButtonProps={saveButtonProps}>
-            <Form {...formProps} layout="vertical" >
+            <Form {...formProps} 
+            layout="vertical"  
+            initialValues={initialValues}
+            >
                 {% for field in fields -%}
                     {% if not readOnlys[loop.index0] %}
                         {{ field }}
