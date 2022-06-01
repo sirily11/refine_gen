@@ -12,6 +12,7 @@ import {
   EditButton,
   DeleteButton,
   Space,
+  Breadcrumb,
   } from "@pankod/refine-antd";
 {% endblock -%}
 
@@ -22,7 +23,7 @@ import {
 {% block fields %}
     return (
         //@ts-ignore
-        <List>
+        <List pageHeaderProps={{ '{{breadcrumb: <Breadcrumb />}}'}}>
            <Table {...tableProps} rowKey="id">
                 {% for field in fields -%}
                     {{ field }}

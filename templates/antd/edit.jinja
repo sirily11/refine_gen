@@ -9,7 +9,8 @@ import {
   getValueFromEvent,
   Upload,
   Edit,
-  DatePicker
+  DatePicker,
+  Breadcrumb,
 } from "@pankod/refine-antd";
 import dayjs from "dayjs"
 {% endblock -%}
@@ -34,7 +35,7 @@ import dayjs from "dayjs"
 
     return (
         //@ts-ignore
-        <Edit saveButtonProps={saveButtonProps}>
+        <Edit saveButtonProps={saveButtonProps} pageHeaderProps={{ '{{breadcrumb: <Breadcrumb />}}'}}>
             <Form {...formProps} 
             layout="vertical"  
             initialValues={initialValues}

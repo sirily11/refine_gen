@@ -9,7 +9,8 @@ import {
   getValueFromEvent,
   Upload,
   Create,
-  DatePicker
+  DatePicker,
+  Breadcrumb,
 } from "@pankod/refine-antd";
 {% endblock -%}
 
@@ -26,7 +27,7 @@ import {
 {% block fields %}
     return (
         //@ts-ignore
-        <Create saveButtonProps={saveButtonProps}>
+        <Create saveButtonProps={saveButtonProps} pageHeaderProps={{ '{{breadcrumb: <Breadcrumb />}}'}}>
             <Form {...formProps} layout="vertical" >
                 {% for field in fields -%}
                     {% if not readOnlys[loop.index0] %}
