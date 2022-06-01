@@ -4,6 +4,7 @@ import {
   Show,
   Typography,
   ImageField,
+  Breadcrumb,
 } from "@pankod/refine-antd";
 import { useShow, useOne } from "@pankod/refine-core";
 
@@ -25,7 +26,7 @@ const { Title, Text } = Typography;
 {% block fields %}
     return (
         //@ts-ignore
-       <Show isLoading={isLoading}>
+       <Show isLoading={isLoading} pageHeaderProps={{ '{{breadcrumb: <Breadcrumb />}}'}}>
            {% for field in fields %}
                 {{field}}
            {% endfor %}
